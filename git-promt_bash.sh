@@ -23,10 +23,10 @@ function __prompt
     local WHITE="\[\033[1;37m\]"   # White
 
     local RESET="\[\033[0m\]"      # Color reset
-    local BOLD="\[\033[;1m\]"      # Bold
+    local BOLD="\[\033[1m\]"      # Bold
 
     # Base prompt
-    PS1="$GREEN\u@\h:$BLUE\w$BOLD \\\$$RESET "
+    PS1="$GREEN\u@\h:$BLUE\w$BOLD $LGREY\\\$$RESET "
 
     local dirty
     local branch
@@ -36,7 +36,7 @@ function __prompt
         if git status -uno -s | grep -q . ; then
             dirty=1
         fi
-        branch=$(git branch --color=never | sed -ne 's/* //p')
+        branch=$(git branch --no-color | sed -ne 's/* //p')
 
     # Look for Subversion status
     else
