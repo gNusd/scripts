@@ -58,7 +58,7 @@ function __prompt
     if [[ ! -z "$branch" ]]; then
         local status_color
         if [[ -z "$dirty" ]] ; then
-            status_color=$LGREEN
+            status_color=$YELLOW
         else
             status_color=$LRED
         fi
