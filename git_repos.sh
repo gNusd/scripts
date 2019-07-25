@@ -2,6 +2,8 @@
 
 basedir=$($HOME/repositories/)
 
+[ ! -e $basedir ] && mkdir $basedir
+
 cd $basedir
 git clone git@github.com:gNusd/scripts.git
 git clone git@github.com:gNusd/dotfiles.git
