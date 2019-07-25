@@ -18,10 +18,15 @@
 
 sudo apt install git
 
+
 basedir=$HOME/repositories
 
 cd $basedir
+SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
+
 git clone git@github.com:gNusd/scripts.git
+bash $basedir/scripts/packages.sh
+
 git clone git@github.com:gNusd/dotfiles.git
 cd $basedir/dotfiles/
 bash $basedir/scripts/dotfile_install.sh
@@ -29,4 +34,3 @@ cd $basedir
 
 git clone git@github.com:gNusd/local-bin.git $HOME/bin
 
-bash $basedir/scripts/packages.sh
