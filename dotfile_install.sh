@@ -21,7 +21,7 @@ do
 		[ -e $conf/$dir ] && rm $conf/$dir
 done
 
-files=("katerc" "katevirc" "plasma-localerc" "plasma-nm" "plasmanotifyrc" "plasma-org.kde.plasma.desktop-appletsrc" "plasmarc" "plasmashellrc")
+files=("katerc" "katevirc" "konsolerc" "kwinrc" "kwinrulesrc" "nvim" "plasma-localerc" "plasma-nm" "plasmanotifyrc" "plasma-org.kde.plasma.desktop-appletsrc" "plasmarc" "plasmashellrc" "qutebrowser" "tridactyl" "user-dirs.dirs" "yakuake.notifyrc" "yakuakerc" "zathura")
 
 for file in "${files[@]}"
 do
@@ -39,3 +39,4 @@ path="$HOME/.ssh"
 [ ! -e $path ] && mkdir $path
 [ -f .$path/ssh_alias ] && [ ! -L $path/ssh_alias ] && rm $path/ssh_alias
 ln -s $(pwd)/.ssh/ssh_alias $path
+
