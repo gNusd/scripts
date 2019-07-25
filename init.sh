@@ -18,7 +18,7 @@
 
 sudo apt install git
 
-basedir=$HOME/repositories/
+basedir=$HOME/repositories
 
 cd $basedir
 git clone git@github.com:gNusd/scripts.git
