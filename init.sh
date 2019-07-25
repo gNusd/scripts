@@ -8,13 +8,13 @@
 [ ! -e $HOME/repositories ] && mkdir $HOME/repositories
 [ ! -e $HOME/bin ] && mkdir $HOME/bin
 
-[ -e  $HOME/Bilder ] && rm $HOME/Bilder
-[ -e  $HOME/Dokument ] && rm $HOME/Dokument
-[ -e  $HOME/Mallar ] && rm $HOME/Mallar
-[ -e  $HOME/Musik ] && rm $HOME/Musik
-[ -e  $HOME/Publikt ] && rm $HOME/Publikt
-[ -e  $HOME/Skrivbord ] && rm $HOME/Skrivbord
-[ -e  $HOME/Video ] && rm $HOME/Video
+[ -e  $HOME/Bilder ] && rm -rf $HOME/Bilder
+[ -e  $HOME/Dokument ] && rm -rf $HOME/Dokument
+[ -e  $HOME/Mallar ] && rm -rf $HOME/Mallar
+[ -e  $HOME/Musik ] && rm -rf $HOME/Musik
+[ -e  $HOME/Publikt ] && rm -rf $HOME/Publikt
+[ -e  $HOME/Skrivbord ] && rm -rf $HOME/Skrivbord
+[ -e  $HOME/Video ] && rm -rf $HOME/Video
 
 sudo apt install git
 
