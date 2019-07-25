@@ -3,6 +3,7 @@
 basedir=$($HOME/repositories/)
 
 cd $basedir
+git clone git@github.com:gNusd/scripts.git
 git clone git@github.com:gNusd/dotfiles.git
 cd $basedir/dotfiles/
 bash $basedir/scripts/dotfile_install.sh
