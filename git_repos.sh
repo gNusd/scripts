@@ -14,8 +14,8 @@ cd $basedir/kwin-tiling/
 plasmapkg2 --type kwinscript -i .
 cd $basedir
 
-git clone git@github.com:ryanoasis/nerd-fonts.git
-$basedir/nerd-fonts/install.sh
+# git clone git@github.com:ryanoasis/nerd-fonts.git
+# $basedir/nerd-fonts/install.sh
 
 git clone git@github.com:sieren/QSyncthingTray.git
 sudo snap install cmake -classic
