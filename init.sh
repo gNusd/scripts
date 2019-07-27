@@ -23,22 +23,23 @@ sudo apt install git -y
 
 basedir=$HOME/repositories
 script_dir=$basedir/scripts
+
 cd $basedir
 SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git
-bash $script_dir/ppa.sh
-bash $script_dir/packages.sh
+sh $script_dir/ppa.sh
+sh $script_dir/packages.sh
 
 git clone git@github.com:gNusd/dotfiles.git
 cd $basedir/dotfiles/
-bash $script_dir/dotfile_install.sh
+sh $script_dir/dotfile_install.sh
 cd $basedir
 
 git clone git@github.com:gNusd/local-bin.git $HOME/bin
 
-bash $script_dir/tmux-nvim.sh
-bash $script_dir/native_tridactyl.sh
-bash $script_dir/git_repos.sh
+sh $script_dir/tmux-nvim.sh
+sh $script_dir/native_tridactyl.sh
+sh $script_dir/git_repos.sh
 
 echo "Finished installing"
