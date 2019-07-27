@@ -7,7 +7,7 @@ sudo snap install cmake --classic
 sudo snap install fwupd --classic
 sudo snap install nextcloud-client --classic
 sudo snap connect nextcloud-client:password-manager-service
-sudo snap install yakuake
+sudo snap install yakuake --edge
 sudo snap install keepassxc
 
 
