@@ -2,7 +2,7 @@
 
 basedir="$HOME/repositories"
 
-sudo apt install build-essential python3-dev libdbus-glib-1-dev libgirepository1.0-dev libcairo2-dev python3-venv python3-wheel
+sudo apt install -y build-essential python3-dev libdbus-glib-1-dev libgirepository1.0-dev libcairo2-dev python3-venv python3-wheel
 
 git clone https://github.com/erpalma/lenovo-throttling-fix.git
 sudo $basedir/lenovo-throttling-fix/install.sh
@@ -18,8 +18,7 @@ cd $basedir
 # $basedir/nerd-fonts/install.sh
 
 git clone git@github.com:sieren/QSyncthingTray.git
-sudo snap install cmake -classic
-sudo apt install qtbase5-dev qtwebengine5-dev
+sudo apt install -y qtbase5-dev qtwebengine5-dev
 cd $basedir/QSyncthingTray
 
 mkdir build && cd build
