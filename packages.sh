@@ -1,8 +1,15 @@
 #!/bin/bash
 
 sudo add-apt-repository multiverse
-sudo apt update && sudo apt upgrade -y
-# sudo pkcon refresh -p && sudo pkcon update -py
+
+if [ $1 == "kubuntu" ];
+then
+		sudo apt update && sudo apt upgrade -y
+elif [ $1 == "neon" ];
+then
+		sudo pkcon refresh -p && sudo pkcon update -py
+fi
+
 sudo apt autoremove -y
 
 # apt install applications

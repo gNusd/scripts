@@ -1,6 +1,17 @@
 #!/bin/bash
 
 
+[ -z $1 ] && exit
+if [ $1 == "neon" ];
+then
+		dist=$1
+elif [ $1 == "kubuntu" ];
+then
+		dist=$1
+else
+		exit
+fi
+
 [ -e  $HOME/Hämtningar ] && mv $HOME/Hämtningar $HOME/hämtningar
 [ ! -e $HOME/nextcloud ] && mkdir $HOME/nextcloud
 [ ! -e $HOME/projects ] && mkdir $HOME/projects
@@ -31,7 +42,7 @@ SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git
 $shell $script_dir/ppa.sh
-$shell $script_dir/packages.sh
+$shell $script_dir/packages.sh $dist
 
 git clone git@github.com:gNusd/dotfiles.git
 cd $basedir/dotfiles/
