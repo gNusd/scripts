@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 [ -e  $HOME/Hämtningar ] && mv $HOME/Hämtningar $HOME/hämtningar
 [ ! -e $HOME/nextcloud ] && mkdir $HOME/nextcloud
 [ ! -e $HOME/projects ] && mkdir $HOME/projects
@@ -21,6 +22,7 @@
 sudo apt install git -y
 
 
+shell=bash
 basedir=$HOME/repositories
 script_dir=$basedir/scripts
 
@@ -28,18 +30,18 @@ cd $basedir
 SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git
-sh $script_dir/ppa.sh
-sh $script_dir/packages.sh
+$shell $script_dir/ppa.sh
+$shell $script_dir/packages.sh
 
 git clone git@github.com:gNusd/dotfiles.git
 cd $basedir/dotfiles/
-sh $script_dir/dotfile_install.sh
+$shell $script_dir/dotfile_install.sh
 cd $basedir
 
 git clone git@github.com:gNusd/local-bin.git $HOME/bin
 
-sh $script_dir/tmux-nvim.sh
-sh $script_dir/native_tridactyl.sh
-sh $script_dir/git_repos.sh
+$shell $script_dir/tmux-nvim.sh
+$shell $script_dir/native_tridactyl.sh
+$shell $script_dir/git_repos.sh
 
 echo "Finished installing"
