@@ -51,3 +51,8 @@ git clone git@github.com:psifidotos/applet-window-title.git
 cd $basedir/applet-window-title
 plasmapkg2 -i .
 cd $basedir
+
+git clone git@github.com:L4ki/Purple.git
+cd $basedir/Purple
+plasmapkg2 -i .
+cd $basedir
