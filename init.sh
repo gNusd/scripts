@@ -44,4 +44,7 @@ $shell $script_dir/tmux-nvim.sh
 $shell $script_dir/native_tridactyl.sh
 $shell $script_dir/git_repos.sh
 
+rm $HOME/init.sh
 echo "Finished installing"
+sleep 10
+sudo shutdown -r now
