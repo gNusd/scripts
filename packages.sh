@@ -1,6 +1,8 @@
 #!/bin/bash
+
 sudo add-apt-repository multiverse
 sudo apt update && sudo apt upgrade -y
+# sudo pkcon refresh -p && sudo pkcon update -py
 sudo apt autoremove -y
 
 # apt install applications
