@@ -14,6 +14,13 @@ cd $basedir/QSyncthingTray
 mkdir build && cd build
 cmake .. && make
 
+git clone git@github.com:spaam/svtplay-dl.git
+cd $basedir/svtplay-dl
+sudo python3 setup.py install
+cd $basedir
+
+# Plasma scripts and plasmoids
+
 git clone git://anongit.kde.org/plasma-redshift-control
 cd $basedir/plasma-redshift-control
 mkdir build && cd build
