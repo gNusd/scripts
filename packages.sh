@@ -13,7 +13,7 @@ fi
 sudo apt autoremove -y
 
 # apt install applications
-sudo apt install -y  tmux curl pyjoke cowsay neovim neovim-qt gimp gimp-help-sv prime-indicator-plus glances htop zathura transmission-qt virtualbox virtualbox-qt virtualbox-ext-pack redshift yakuake kontact kate
+sudo apt install -y  tmux curl pyjoke cowsay neovim neovim-qt gimp gimp-help-sv prime-indicator-plus glances htop zathura transmission-qt virtualbox virtualbox-qt virtualbox-ext-pack redshift yakuake kontact kate kubuntu-driver-manager libreoffice libreoffice-style-breeze ttf-mscorefonts-installer kubuntu-restricted-extras gufw tlp tlp-rdw syncthing
 
 # apt install dependencies
 sudo apt install -y python-pip python3-pip build-essential python3-dev libdbus-glib-1-dev libgirepository1.0-dev libcairo2-dev python3-venv python3-wheel qtbase5-dev qtwebengine5-dev extra-cmake-modules qtdeclarative5-dev libkf5windowsystem-dev libkf5plasma-dev libsm-dev libqt5x11extras5-dev
