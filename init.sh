@@ -60,7 +60,7 @@ git clone git@github.com:gNusd/local-bin.git $HOME/bin
 
 $shell $script_dir/tmux-nvim.sh
 $shell $script_dir/native_tridactyl.sh
-$shell $script_dir/git_repos.sh
+$shell $script_dir/git_repos.sh $dist
 
 rm $HOME/init.sh
 echo "Finished installing"

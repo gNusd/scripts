@@ -19,6 +19,8 @@ cd $basedir/svtplay-dl
 sudo python3 setup.py install
 cd $basedir
 
+if [ $1 == "neon" ]
+then
 # Plasma scripts and plasmoids
 
 git clone git://anongit.kde.org/plasma-redshift-control
@@ -51,3 +53,4 @@ git clone git@github.com:psifidotos/applet-window-title.git
 cd $basedir/applet-window-title
 plasmapkg2 -i .
 cd $basedir
+fi
