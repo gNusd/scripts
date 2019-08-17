@@ -2,7 +2,13 @@
 
 
 # ROOT files
-files=(".bash_aliases" ".bashrc" ".inputrc" ".profile" ".tmux.conf")
+if [ $1 == "neon" ]
+then
+      files=(".bash_aliases" ".bashrc" ".inputrc" ".profile" ".tmux.conf")
+elif [ $1 == "mageia" ]
+then
+      files=(".bash_aliases" ".inputrc" ".profile" ".tmux.conf")
+fi 
 
 path=$HOME
 for file in "${files[@]}"
