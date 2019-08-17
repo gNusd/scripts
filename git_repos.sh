@@ -7,12 +7,14 @@ sudo $basedir/lenovo-throttling-fix/install.sh
 
 # git clone git@github.com:ryanoasis/nerd-fonts.git
 # $basedir/nerd-fonts/install.sh
-
+if [ $1 == "neon" ]
+then
 git clone git@github.com:sieren/QSyncthingTray.git
 cd $basedir/QSyncthingTray
 
 mkdir build && cd build
 cmake .. && make
+fi
 
 git clone git@github.com:spaam/svtplay-dl.git
 cd $basedir/svtplay-dl

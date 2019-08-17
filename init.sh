@@ -10,10 +10,7 @@ then
 elif [ $1 == "mageia" ];
 then
 		dist=$1
-		su
-		dnf install sudo 
-		usermod gnus -g wheel
-		sudo dnf install git 
+		sudo dnf install git ksshaskpass -y 
 fi
 # renamning and creating directories
 [ -e  $HOME/Hämtningar ] && mv $HOME/Hämtningar $HOME/hämtningar
