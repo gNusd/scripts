@@ -52,7 +52,11 @@ SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git
 echo "cloning scripts.git" >> $log
-[ $dist == "neon"] && $shell $script_dir/ppa.sh && echo "adding ppa" >> $log
+if [ $dist == "neon"] 
+then 
+	$shell $script_dir/ppa.sh 
+	echo "adding ppa" >> $log
+fi
 $shell $script_dir/packages.sh $dist 
 
 git clone git@github.com:gNusd/dotfiles.git
