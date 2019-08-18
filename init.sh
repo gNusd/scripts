@@ -1,6 +1,12 @@
 #!/bin/bash
 
-log=$HOME/install.log
+# definning path to local repo dir
+basedir=$HOME/repositories
+# defining path to script dir
+script_dir=$basedir/scripts
+
+source $script_dir/config 
+echo "$timestamp started installing"
 
 [ -z $1 ] && exit
 if [ $1 == "neon" ];
@@ -37,30 +43,20 @@ echo "Installing $dist" >> $log
 [ -e  $HOME/Skrivbord ] && rm -rf $HOME/Skrivbord
 [ -e  $HOME/Video ] && rm -rf $HOME/Video
 
-echo "added and deleted directories" >> $log
+echo "$timestamp added and deleted directories" >> $log 
 
 # defining shell
-shell=bash
-# definning path to local repo dir
-basedir=$HOME/repositories
-# defining path to script dir
-script_dir=$basedir/scripts
-
 cd $basedir
 # 
 SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git
-echo "cloning scripts.git" >> $log
-if [ $dist == "neon"] 
-then 
-	$shell $script_dir/ppa.sh 
-	echo "adding ppa" >> $log
-fi
+echo "$timestamp cloning scripts.git" >> $log
+
 $shell $script_dir/packages.sh $dist 
 
 git clone git@github.com:gNusd/dotfiles.git
-echo "cloning dotfiles.git" >> $log
+echo "$timestamp cloning dotfiles.git" >> $log
 cd $basedir/dotfiles/
 $shell $script_dir/dotfile_install.sh $dist
 cd $basedir
@@ -73,7 +69,7 @@ $shell $script_dir/git_repos.sh $dist
 
 rm $HOME/init.sh
 
-echo "Finished installing" >> $log
+echo "$timestamp Finished installing" >> $log
 echo "Finished installing"
 read -r -p "Reboot now [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]

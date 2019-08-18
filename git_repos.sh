@@ -1,20 +1,29 @@
 #!/bin/bash
 
-basedir="$HOME/repositories"
+# definning path to local repo dir
+basedir=$HOME/repositories
+# defining path to script dir
+script_dir=$basedir/scripts
+
+source $script_dir/config 
+
 
 git clone https://github.com/erpalma/lenovo-throttling-fix.git
 sudo $basedir/lenovo-throttling-fix/install.sh
+echo "$timestamp cloned/installed lenovo-throttling-fix.git" >> $log
 
 enviroment=$(dmidecode | grep Product)
 if [ $enviroment != "Product Name: VirtualBox" ]
 then
     git clone git@github.com:ryanoasis/nerd-fonts.git
     $basedir/nerd-fonts/install.sh
+    echo "$timestamp cloned/installed nerd-fonts.git" >> $log
 fi
 
 git clone git@github.com:spaam/svtplay-dl.git
 cd $basedir/svtplay-dl
 sudo python3 setup.py install
+echo "$timestamp cloned/installed svtplay-dl.git" >> $log
 cd $basedir
 
 if [ $1 == "neon" ]
@@ -24,7 +33,7 @@ then
 
     mkdir build && cd build
     cmake .. && make
-    
+    echo "$timestamp cloned/installed qsyncthingtray.git" >> $log
 # Plasma scripts and plasmoids
 
     git clone git://anongit.kde.org/plasma-redshift-control
@@ -57,4 +66,5 @@ then
     cd $basedir/applet-window-title
     plasmapkg2 -i .
     cd $basedir
+    echo "$timestamp cloned/installed plasmoids" >> $log
 fi

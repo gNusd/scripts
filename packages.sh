@@ -1,12 +1,23 @@
 #!/bin/bash
 
+# definning path to local repo dir
+basedir=$HOME/repositories
+# defining path to script dir
+script_dir=$basedir/scripts
+
+source $script_dir/config
 
 if [ $1 == "neon" ];
 then
+		# apt repository
 		sudo add-apt-repository multiverse
+		sudo add-apt-repository ppa:neovim-ppa/stable
+		sudo add-apt-repository ppa:nilarimogard/webupd8
+		sudo apt update
 		sudo pkcon refresh -p && sudo pkcon update -py
 		pacmanager="pkcon"
 		autor="apt"
+		echo "$timestamp added repos" >> $log
 
 elif [ $1 == "mageia" ];
 then
@@ -14,9 +25,10 @@ then
 		sudo urpmi.addmedia --distrib --mirrorlist 'http://mirrors.mageia.org/api/mageia.cauldron.x86_64.list'
 		sudo urpmi --auto-update --auto
 		pacmanager="dnf"
+		echo "$timestamp added cauldron repos" >> $log
 fi
 
-sudo $pacmanager autoremove -y
+sudo $autor autoremove -y
 
 # general packages 
 gen_pac="tmux curl neovim neovim-qt gimp gimp-help-sv htop zathura redshift yakuake tlp tlp-rdw"
@@ -27,6 +39,8 @@ mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev gobjec
 
 # apt install applications
 sudo $pacmanager install -y  $gen_pac
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
 if [ $1 == "neon" ]
 then
 	sudo $pacmanager install -y $neon_pac $neon_dep_pac
@@ -36,12 +50,13 @@ then
 	sudo flatpak install flathub org.nextcloud.Nextcloud -y
 	sudo flatpak install flathub org.keepassxc.KeePassXC -y
 	apps="kwrite"
+	echo "$timestamp installed snaps, flatpaks and apps from repo" >> $log
 elif [ $1 == "mageia" ]
 then
 	sudo $pacmanager install -y $mageia_pac $mageia_dep_pac  
-	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	sudo flatpak install flathub me.kozec.syncthingtk -y
 	apps="kwrite dragon clementine marble k3b"
+	echo "$timestamp installed flatpaks and apps from repo" >> $log
 fi
 
 sudo flatpak install flathub org.qutebrowser.qutebrowser -y
@@ -50,6 +65,7 @@ sudo flatpak install flathub com.visualstudio.code -y
 
 # sudo pip install ntfy
 bash $HOME/repositories/scripts/native_tridactyl.sh
-
+echo "$timestamp installed tridactyl" >> $log
 # removing software
 sudo $pacmanager remove -y $apps 
+echo "$timestamp removed selected apps" >> $log

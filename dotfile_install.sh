@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# definning path to local repo dir
+basedir=$HOME/repositories
+# defining path to script dir
+script_dir=$basedir/scripts
+
+source $script_dir/config 
+
 
 # ROOT files
 if [ $1 == "neon" ]
@@ -16,7 +23,7 @@ do
    [ -f $path/$file ] && [ ! -L $path/$file ] && rm $path/$file
    [ ! -f $path/$file ] && ln -s $(pwd)/$file $path
 done
-
+echo "$timestamp linked $files" >> $log
 # .config
 
 conf=$HOME/.config
@@ -27,6 +34,8 @@ do
 		[ -e $conf/$dir ] && rm $conf/$dir
       [ ! -e $conf/$dir ] && ln -s $(pwd)/.config/$dir $conf 
 done
+
+echo "$timestamp linked $dirs" >> $log
 
 if [ $1 == "neon" ]
 then 
@@ -42,13 +51,18 @@ do
       [ ! -f $conf/$file ] && ln -s $(pwd)/.config/$file $conf
 done
 
+echo "$timestamp linked $files" >> $log
 
 # mozilla
 [ ! -e  $HOME/.mozilla/firefox/current/ ] && mkdir -p $HOME/.mozilla/firefox/current/
 ln -s $(pwd)/.mozilla/firefox/current/* $HOME/.mozilla/firefox/current/
+
+echo "$timestamp linked mozilla firefox dir" >> $log
 
 #.ssh
 path="$HOME/.ssh"
 [ ! -e $path ] && mkdir $path
 [ -f .$path/ssh_alias ] && [ ! -L $path/ssh_alias ] && rm $path/ssh_alias
 ln -s $(pwd)/.ssh/ssh_alias $path
+
+echo "$timestamp linked ssh_alias" >> $log
