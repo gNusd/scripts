@@ -8,7 +8,7 @@ script_dir=$basedir/scripts
 source $script_dir/config 
 
 
-# ROOT files
+# ROOT files 
 if [ $1 == "neon" ]
 then
       files=(".bash_aliases" ".bashrc" ".inputrc" ".profile" ".tmux.conf")

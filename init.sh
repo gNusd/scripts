@@ -7,7 +7,7 @@ script_dir=$basedir/scripts
 log=$HOME/install.log
 timestamp=$(date +'%T')
 shell=bash
-
+ 
 echo "$timestamp started installing $1"
 
 [ -z $1 ] && exit
