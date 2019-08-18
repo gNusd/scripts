@@ -15,15 +15,17 @@ if [ $1 == "neon" ];
 then
 		dist=$1
 		sudo pkcon install git -y
+		autor="apt"
 
 elif [ $1 == "mageia" ];
 then
 		dist=$1
 		sudo dnf install git ksshaskpass -y
+		autor="dnf"
 else
 	echo "KDE neon (write neon) or Mageia (write mageia)"
+	exit
 fi
-echo "Installing $dist" >> $log
 # renamning and creating directories
 [ -e  $HOME/Hämtningar ] && mv $HOME/Hämtningar $HOME/hämtningar
 [ ! -e $HOME/nextcloud ] && mkdir $HOME/nextcloud
@@ -71,6 +73,8 @@ $shell $script_dir/git_repos.sh $dist
 
 rm $HOME/init.sh
 
+sudo $autor autoremove -y
+echo "$timestamp Post install clean up" >> $log
 echo "$timestamp Finished installing" >> $log
 echo "Finished installing"
 read -r -p "Reboot now [y/N] " response

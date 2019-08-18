@@ -16,7 +16,6 @@ then
 		sudo apt update
 		sudo pkcon refresh -p && sudo pkcon update -py
 		pacmanager="pkcon"
-		autor="apt"
 		echo "$timestamp added repos" >> $log
 
 elif [ $1 == "mageia" ];
@@ -27,8 +26,6 @@ then
 		pacmanager="dnf"
 		echo "$timestamp added cauldron repos" >> $log
 fi
-
-sudo $autor autoremove -y
 
 # general packages 
 gen_pac="tmux curl neovim neovim-qt gimp gimp-help-sv htop zathura redshift yakuake tlp tlp-rdw"
