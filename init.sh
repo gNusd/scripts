@@ -1,5 +1,6 @@
 #!/bin/bash
 
+log=$HOME/install.log
 
 [ -z $1 ] && exit
 if [ $1 == "neon" ];
@@ -10,8 +11,11 @@ then
 elif [ $1 == "mageia" ];
 then
 		dist=$1
-		sudo dnf install git ksshaskpass -y 
+		sudo dnf install git ksshaskpass -y
+else
+	echo "KDE neon (write neon) or Mageia (write mageia)"
 fi
+echo "Installing $dist" >> $log
 # renamning and creating directories
 [ -e  $HOME/Hämtningar ] && mv $HOME/Hämtningar $HOME/hämtningar
 [ ! -e $HOME/nextcloud ] && mkdir $HOME/nextcloud
@@ -33,6 +37,8 @@ fi
 [ -e  $HOME/Skrivbord ] && rm -rf $HOME/Skrivbord
 [ -e  $HOME/Video ] && rm -rf $HOME/Video
 
+echo "added and deleted directories" >> $log
+
 # defining shell
 shell=bash
 # definning path to local repo dir
@@ -45,10 +51,12 @@ cd $basedir
 SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git
-[ $dist == "neon"] && $shell $script_dir/ppa.sh
+echo "cloning scripts.git" >> $log
+[ $dist == "neon"] && $shell $script_dir/ppa.sh && echo "adding ppa" >> $log
 $shell $script_dir/packages.sh $dist 
 
 git clone git@github.com:gNusd/dotfiles.git
+echo "cloning dotfiles.git" >> $log
 cd $basedir/dotfiles/
 $shell $script_dir/dotfile_install.sh $dist
 cd $basedir
@@ -61,6 +69,7 @@ $shell $script_dir/git_repos.sh $dist
 
 rm $HOME/init.sh
 
+echo "Finished installing" >> $log
 echo "Finished installing"
 read -r -p "Reboot now [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]

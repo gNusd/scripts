@@ -22,7 +22,7 @@ gen_pac="tmux curl neovim neovim-qt gimp gimp-help-sv htop zathura redshift yaku
 neon_pac="kontact kate kubuntu-driver-manager libreoffice libreoffice-style-breeze ttf-mscorefonts-installer kubuntu-restricted-extras gufw syncthing"
 neon_dep_pac="python-pip python3-pip build-essential python3-dev libdbus-glib-1-dev libgirepository1.0-dev libcairo2-dev python3-venv python3-wheel qtbase5-dev qtwebengine5-dev extra-cmake-modules qtdeclarative5-dev libkf5windowsystem-dev libkf5plasma-dev libsm-dev libqt5x11extras5-dev"
 mageia_pac="flatpak fwupd nextcloud-client nextcloud-client-dolphin keepassxc kate"
-mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev gobject-introspection lib64dbus-glib-devel lib64python3-devel make lib64x11-devel python-dbus-devel"
+mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev gobject-introspection lib64dbus-glib-devel lib64python3-devel make lib64x11-devel python-dbus-devel lib64dbusmenu-gtk2 lib64dbusmenu-gtk3"
 
 # apt install applications
 sudo $pacmanager install -y  $gen_pac
@@ -43,6 +43,7 @@ then
 	sudo flatpak install flathub org.nextcloud.Nextcloud -y
 	sudo flatpak install flathub org.keepassxc.KeePassXC -y
 elif [ $1 == "mageia" ]
+then
 	sudo flatpak install flathub me.kozec.syncthingtk -y
 fi
 
@@ -61,7 +62,7 @@ then
 
 elif [ $1 == "mageia" ] 
 then 
-	apps="kwrite dragon clementine marble"
+	apps="kwrite dragon clementine marble k3b"
 fi
 
 sudo $pacmanager remove -y $apps 
