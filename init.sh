@@ -60,6 +60,12 @@ $shell $script_dir/native_tridactyl.sh
 $shell $script_dir/git_repos.sh $dist
 
 rm $HOME/init.sh
+
 echo "Finished installing"
-sleep 10
-sudo shutdown -r now
+read -r -p "Reboot now [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+	sudo shutdown -r now
+else
+	exit
+fi

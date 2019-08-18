@@ -31,21 +31,21 @@ sudo $pacmanager install -y  $gen_pac
 
 if [ $1 == "neon" ]
 then
-		sudo snap install cmake --classic
-		sudo snap install fwupd --classic
-		sudo snap install youtube-dl
+	sudo snap install cmake --classic
+	sudo snap install fwupd --classic
+	sudo snap install youtube-dl
 fi
-python3-cairo-devel python-gobject-devel python3
-if [ $1 == "mageia" ] 
-then 
-		sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-fi 
+
+[ $1 == "mageia" ] && sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 if [ $1 == "neon" ]
 then 
-		sudo flatpak install flathub org.nextcloud.Nextcloud -y
-		sudo flatpak install flathub org.keepassxc.KeePassXC -y
+	sudo flatpak install flathub org.nextcloud.Nextcloud -y
+	sudo flatpak install flathub org.keepassxc.KeePassXC -y
+elif [ $1 == "mageia" ]
+	sudo flatpak install flathub me.kozec.syncthingtk -y
 fi
+
 sudo flatpak install flathub org.qutebrowser.qutebrowser -y
 sudo flatpak install flathub com.valvesoftware.Steam -y
 sudo flatpak install flathub com.visualstudio.code -y
