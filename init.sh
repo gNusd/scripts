@@ -4,8 +4,10 @@
 basedir=$HOME/repositories
 # defining path to script dir
 script_dir=$basedir/scripts
+log=$HOME/install.log
+timestamp=$(date +'%T')
+shell=bash
 
-source $script_dir/config 
 echo "$timestamp started installing $1"
 
 [ -z $1 ] && exit
