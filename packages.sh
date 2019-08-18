@@ -55,4 +55,13 @@ bash $HOME/repositories/scripts/native_tridactyl.sh
 
 # removing software
 
-sudo $pacmanager remove -y kwrite  
+if [ $1 == "neon" ]
+then 
+	apps="kwrite"
+
+elif [ $1 == "mageia" ] 
+then 
+	apps="kwrite dragon clementine marble"
+fi
+
+sudo $pacmanager remove -y $apps 
