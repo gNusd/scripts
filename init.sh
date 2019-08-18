@@ -6,7 +6,7 @@ basedir=$HOME/repositories
 script_dir=$basedir/scripts
 
 source $script_dir/config 
-echo "$timestamp started installing"
+echo "$timestamp started installing $1"
 
 [ -z $1 ] && exit
 if [ $1 == "neon" ];
