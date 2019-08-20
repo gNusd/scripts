@@ -50,7 +50,7 @@ fi
 echo "$timestamp added and deleted directories" >> $log 
 
 # defining shell
-cd $basedir
+cd $basedir || return 
 # 
 SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
@@ -61,9 +61,9 @@ $shell $script_dir/packages.sh $dist
 
 git clone git@github.com:gNusd/dotfiles.git
 echo "$timestamp cloning dotfiles.git" >> $log
-cd $basedir/dotfiles/
+cd $basedir/dotfiles/ || return
 $shell $script_dir/dotfile_install.sh $dist
-cd $basedir
+cd $basedir || return
 
 git clone git@github.com:gNusd/local-bin.git $HOME/bin
 
