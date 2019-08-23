@@ -41,24 +41,24 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 if [ $1 == "neon" ]
 then
 	sudo $pacmanager install -y $neon_pac $neon_dep_pac
-	sudo snap install cmake --classic
-	sudo snap install fwupd --classic
-	sudo snap install youtube-dl
-	sudo flatpak install flathub org.nextcloud.Nextcloud -y
-	sudo flatpak install flathub org.keepassxc.KeePassXC -y
+	sudo snap install cmake --classic && echo "$timestamp installed cmake" >> $log
+	sudo snap install fwupd --classic && echo "$timestamp installed fwupd" >> $log
+	sudo snap install youtube-dl&& echo "$timestamp installed youtube-dl" >> $log
+	sudo flatpak install flathub org.nextcloud.Nextcloud -y&& echo "$timestamp installed nextcloud" >> $log
+	sudo flatpak install flathub org.keepassxc.KeePassXC -y&& echo "$timestamp installed keepassxc" >> $log
 	apps="kwrite"
-	echo "$timestamp installed snaps, flatpaks and apps from repo" >> $log
+	echo "$timestamp installed $neon_pac $neon_dep_pac" >> $log
 elif [ $1 == "mageia" ]
 then
 	sudo $pacmanager install -y $mageia_pac $mageia_dep_pac  
-	sudo flatpak install flathub me.kozec.syncthingtk -y
-	apps="kwrite dragon clementine marble k3b"
-	echo "$timestamp installed flatpaks and apps from repo" >> $log
+	sudo flatpak install flathub me.kozec.syncthingtk -y && echo "$timestamp syncthing" >> $log
+	apps="kwrite dragon clementine marble k3b" && echo "$timestamp installed $mageia_pac $mageia_dep_pac" >> $log
 fi
 
-sudo flatpak install flathub org.qutebrowser.qutebrowser -y
-sudo flatpak install flathub com.valvesoftware.Steam -y
-sudo flatpak install flathub com.visualstudio.code -y
+sudo flatpak install flathub org.qutebrowser.qutebrowser -y && echo "$timestamp installed qutebrowser" >> $log
+sudo flatpak install flathub com.valvesoftware.Steam -y && echo "$timestamp installed steam" >> $log
+sudo flatpak install flathub com.visualstudio.code -y && echo "$timestamp installed vscode" >> $log
+
 
 # sudo pip install ntfy
 bash $HOME/repositories/scripts/native_tridactyl.sh
