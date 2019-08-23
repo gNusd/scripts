@@ -20,10 +20,10 @@ fi
 path=$HOME
 for file in "${files[@]}"
 do
-   [ -f $path/$file ] && [ ! -L $path/$file ] && rm $path/$file
-   [ ! -f $path/$file ] && ln -s $(pwd)/$file $path
+      [ -f $path/$file ] && [ ! -L $path/$file ] && rm $path/$file
+      [ ! -f $path/$file ] && ln -s $(pwd)/$file $path
+      echo "$timestamp linked $file" >> $log
 done
-echo "$timestamp linked $files" >> $log
 # .config
 
 conf=$HOME/.config
@@ -31,11 +31,11 @@ conf=$HOME/.config
 dirs=("nvim" "qutebrowser" "triadactyl" "zathura")
 for dir in "${dirs[@]}"
 do
-		[ -e $conf/$dir ] && rm $conf/$dir
+	[ -e $conf/$dir ] && rm $conf/$dir
       [ ! -e $conf/$dir ] && ln -s $(pwd)/.config/$dir $conf 
+      echo "$timestamp linked $dir" >> $log
 done
 
-echo "$timestamp linked $dirs" >> $log
 
 if [ $1 == "neon" ]
 then 
@@ -49,9 +49,9 @@ for file in "${files[@]}"
 do
 		[ -f $conf/$file ] && [ ! -L $conf/$file ] && rm $conf/$file
       [ ! -f $conf/$file ] && ln -s $(pwd)/.config/$file $conf
+      echo "$timestamp linked $file" >> $log
 done
 
-echo "$timestamp linked $files" >> $log
 
 # mozilla
 [ ! -e  $HOME/.mozilla/firefox/current/ ] && mkdir -p $HOME/.mozilla/firefox/current/
