@@ -62,4 +62,4 @@ sudo flatpak install flathub com.visualstudio.code -y && echo "$timestamp instal
 bash $HOME/repositories/scripts/native_tridactyl.sh
 
 # removing software
-sudo $pacmanager remove -y $apps && echo "$timestamp removed selected apps" >> $log
+sudo $pacmanager remove -y $apps && echo "$timestamp removed $apps" >> $log
