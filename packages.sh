@@ -34,16 +34,16 @@ mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev gobjec
 
 # apt install applications
 sudo $pacmanager install -y  $gen_pac
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepohttps://www.wikiwand.com/en/Mageia
 
 if [ $1 == "neon" ]
 then
 	sudo $pacmanager install -y $neon_pac $neon_dep_pac
 	sudo snap install cmake --classic && echo "$timestamp installed cmake" >> $log
 	sudo snap install fwupd --classic && echo "$timestamp installed fwupd" >> $log
-	sudo snap install youtube-dl&& echo "$timestamp installed youtube-dl" >> $log
-	sudo flatpak install flathub org.nextcloud.Nextcloud -y&& echo "$timestamp installed nextcloud" >> $log
-	sudo flatpak install flathub org.keepassxc.KeePassXC -y&& echo "$timestamp installed keepassxc" >> $log
+	sudo snap install youtube-dl && echo "$timestamp installed youtube-dl" >> $log
+	sudo flatpak install flathub org.nextcloud.Nextcloud -y && echo "$timestamp installed nextcloud" >> $log
+	sudo flatpak install flathub org.keepassxc.KeePassXC -y && echo "$timestamp installed keepassxc" >> $log
 	apps="kwrite"
 	echo "$timestamp installed $neon_pac $neon_dep_pac" >> $log
 elif [ $1 == "mageia" ]
@@ -60,7 +60,6 @@ sudo flatpak install flathub com.visualstudio.code -y && echo "$timestamp instal
 
 # sudo pip install ntfy
 bash $HOME/repositories/scripts/native_tridactyl.sh
-echo "$timestamp installed tridactyl" >> $log
+
 # removing software
-sudo $pacmanager remove -y $apps 
-echo "$timestamp removed selected apps" >> $log
+sudo $pacmanager remove -y $apps && echo "$timestamp removed selected apps" >> $log
