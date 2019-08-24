@@ -32,6 +32,7 @@ neon_dep_pac="python-pip python3-pip build-essential python3-dev libdbus-glib-1-
 mageia_pac="flatpak fwupd nextcloud-client nextcloud-client-dolphin keepassxc kate"
 mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev gobject-introspection lib64dbus-glib-devel lib64python3-devel make lib64x11-devel python-dbus-devel lib64dbusmenu-gtk2 lib64dbusmenu-gtk3"
 
+echo "$timestamp selected package manager = $pacmanager" >> $log
 # apt install applications
 sudo $pacmanager install -y  $gen_pac && echo "$timestamp installed $gen_pac" >> $log
 
