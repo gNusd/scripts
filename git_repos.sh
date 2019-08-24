@@ -20,11 +20,6 @@ then
     echo "$timestamp cloned/installed nerd-fonts.git" >> $log
 fi
 
-git clone git@github.com:spaam/svtplay-dl.git
-cd $basedir/svtplay-dl
-sudo python3 setup.py install
-echo "$timestamp cloned/installed svtplay-dl.git" >> $log
-cd $basedir
 
 if [ $1 == "neon" ]
 then
@@ -34,7 +29,15 @@ then
     mkdir build && cd build
     cmake .. && make
     echo "$timestamp cloned/installed qsyncthingtray.git" >> $log
+
+    git clone git@github.com:spaam/svtplay-dl.git
+    cd $basedir/svtplay-dl
+    sudo python3 setup.py install
+    echo "$timestamp cloned/installed svtplay-dl.git" >> $log
+    cd $basedir
+
 # Plasma scripts and plasmoids
+
 
     git clone git://anongit.kde.org/plasma-redshift-control
     cd $basedir/plasma-redshift-control
