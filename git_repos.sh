@@ -9,15 +9,13 @@ source $script_dir/config
 
 
 git clone https://github.com/erpalma/lenovo-throttling-fix.git
-sudo $basedir/lenovo-throttling-fix/install.sh
-echo "$timestamp cloned/installed lenovo-throttling-fix.git" >> $log
+sudo $basedir/lenovo-throttling-fix/install.sh && echo "$timestamp cloned/installed lenovo-throttling-fix.git" >> $log
 
 enviroment=$(dmidecode | grep Product)
 if [ $enviroment != "Product Name: VirtualBox" ]
 then
     git clone git@github.com:ryanoasis/nerd-fonts.git
-    $basedir/nerd-fonts/install.sh
-    echo "$timestamp cloned/installed nerd-fonts.git" >> $log
+    $basedir/nerd-fonts/install.sh && echo "$timestamp cloned/installed nerd-fonts.git" >> $log
 fi
 
 
@@ -27,13 +25,11 @@ then
     cd $basedir/QSyncthingTray
 
     mkdir build && cd build
-    cmake .. && make
-    echo "$timestamp cloned/installed qsyncthingtray.git" >> $log
+    cmake .. && make && echo "$timestamp cloned/installed qsyncthingtray.git" >> $log
 
     git clone git@github.com:spaam/svtplay-dl.git
     cd $basedir/svtplay-dl
-    sudo python3 setup.py install
-    echo "$timestamp cloned/installed svtplay-dl.git" >> $log
+    sudo python3 setup.py install && echo "$timestamp cloned/installed svtplay-dl.git" >> $log
     cd $basedir
 
 # Plasma scripts and plasmoids
