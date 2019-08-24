@@ -49,10 +49,10 @@ then
 	echo "$timestamp installed $neon_pac $neon_dep_pac" >> $log
 elif [ $1 == "mageia" ]
 then
-	sudo $pacmanager install -y $mageia_pac $mageia_dep_pac  
+	sudo $pacmanager install -y $mageia_pac $mageia_dep_pac && echo "$timestamp installed $mageia_pac $mageia_dep_pac" >> $log
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "$timestamp added flathub repo" >> $log
 	sudo flatpak install flathub me.kozec.syncthingtk -y && echo "$timestamp syncthing" >> $log
-	apps="kwrite dragon clementine marble k3b" && echo "$timestamp installed $mageia_pac $mageia_dep_pac" >> $log
+	apps="kwrite dragon clementine marble k3b"
 fi
 
 sudo flatpak install flathub org.qutebrowser.qutebrowser -y && echo "$timestamp installed qutebrowser" >> $log
