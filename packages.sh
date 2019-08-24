@@ -33,8 +33,7 @@ mageia_pac="flatpak fwupd nextcloud-client nextcloud-client-dolphin keepassxc ka
 mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev gobject-introspection lib64dbus-glib-devel lib64python3-devel make lib64x11-devel python-dbus-devel lib64dbusmenu-gtk2 lib64dbusmenu-gtk3"
 
 # apt install applications
-sudo $pacmanager install -y  $gen_pac
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepohttps://www.wikiwand.com/en/Mageia
+sudo $pacmanager install -y  $gen_pac && echo "$timestamp installed $gen_pac" >> $log
 
 if [ $1 == "neon" ]
 then
@@ -42,6 +41,7 @@ then
 	sudo snap install cmake --classic && echo "$timestamp installed cmake" >> $log
 	sudo snap install fwupd --classic && echo "$timestamp installed fwupd" >> $log
 	sudo snap install youtube-dl && echo "$timestamp installed youtube-dl" >> $log
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "$timestamp added flathub repo" >> $log
 	sudo flatpak install flathub org.nextcloud.Nextcloud -y && echo "$timestamp installed nextcloud" >> $log
 	sudo flatpak install flathub org.keepassxc.KeePassXC -y && echo "$timestamp installed keepassxc" >> $log
 	apps="kwrite"
@@ -49,6 +49,7 @@ then
 elif [ $1 == "mageia" ]
 then
 	sudo $pacmanager install -y $mageia_pac $mageia_dep_pac  
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepohttps://www.wikiwand.com/en/Mageia && echo "$timestamp added flathub repo" >> $log
 	sudo flatpak install flathub me.kozec.syncthingtk -y && echo "$timestamp syncthing" >> $log
 	apps="kwrite dragon clementine marble k3b" && echo "$timestamp installed $mageia_pac $mageia_dep_pac" >> $log
 fi
