@@ -42,8 +42,6 @@ fi
 [ -e  $HOME/Mallar ] && rm -rf $HOME/Mallar && echo "$timestamp removed templates" >> $log
 [ -e  $HOME/Musik ] && rm -rf $HOME/Musik && echo "$timestamp removed music" >> $log
 [ -e  $HOME/Publikt ] && rm -rf $HOME/Publikt && echo "$timestamp removed public" >> $log
-[ -e  $HOME/Desktop ] && rm -rf $HOME/Desktop && echo "$timestamp removed desktop" >> $log
-[ -e  $HOME/Skrivbord ] && rm -rf $HOME/Skrivbord && echo "$timestamp removed desktop" >> $log
 [ -e  $HOME/Video ] && rm -rf $HOME/Video && echo "$timestamp removed video" >> $log
 
 # defining shell
