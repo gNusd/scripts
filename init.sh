@@ -65,6 +65,7 @@ git clone git@github.com:gNusd/local-bin.git $HOME/bin && echo "$timestamp clone
 $shell $script_dir/tmux-nvim.sh
 $shell $script_dir/native_tridactyl.sh
 $shell $script_dir/git_repos.sh $dist
+$shell $script_dir/systemprocesses.sh $dist
 
 rm $HOME/init.sh &&  echo "$timestamp removed install script" >> $log
 
