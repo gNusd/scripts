@@ -10,21 +10,19 @@ source $script_dir/config
 if [ $1 == "neon" ];
 then
 		# apt repository
-		sudo add-apt-repository multiverse
-		sudo add-apt-repository ppa:neovim-ppa/stable
-		sudo add-apt-repository ppa:nilarimogard/webupd8
+		sudo add-apt-repository multiverse && echo "$timestamp added multiverse" >> $log
+		sudo add-apt-repository ppa:neovim-ppa/stable && echo "$timestamp added neovim-ppa" >> $log
+		sudo add-apt-repository ppa:nilarimogard/webupd8 && echo "$timestamp added webupd8 ppa" >> $log
 		sudo apt update
-		sudo pkcon refresh -p && sudo pkcon update -py
+		sudo pkcon refresh -p && sudo pkcon update -py && echo "$timestamp updating the system" >> $log
 		pacmanager="pkcon"
-		echo "$timestamp added repos" >> $log
 
 elif [ $1 == "mageia" ];
 then
-		sudo urpmi.removemedia -a
-		sudo urpmi.addmedia --distrib --mirrorlist 'http://mirrors.mageia.org/api/mageia.cauldron.x86_64.list'
-		sudo urpmi --auto-update --auto
+		sudo urpmi.removemedia -a && echo "$timestamp removing all repos" >> $log
+		sudo urpmi.addmedia --distrib --mirrorlist 'http://mirrors.mageia.org/api/mageia.cauldron.x86_64.list' && echo "$timestamp added cauldron repos" >> $log
+		sudo urpmi --auto-update --auto && echo "$timestamp updating the system" >> $log
 		pacmanager="dnf"
-		echo "$timestamp added cauldron repos" >> $log
 fi
 
 # general packages 
