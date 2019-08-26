@@ -55,7 +55,6 @@ then
 	apps="kwrite dragon clementine marble k3b"
 fi
 
-sudo flatpak install flathub org.qutebrowser.qutebrowser -y && echo "$timestamp installed qutebrowser" >> $log
 sudo flatpak install flathub com.valvesoftware.Steam -y && echo "$timestamp installed steam" >> $log
 sudo flatpak install flathub com.visualstudio.code -y && echo "$timestamp installed vscode" >> $log
 
