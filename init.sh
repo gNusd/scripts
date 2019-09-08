@@ -7,7 +7,7 @@ script_dir=$basedir/scripts
 log=$HOME/install.log
 timestamp=$(date +'%T')
 shell=bash
- 
+
 echo "$timestamp started installing $1" >> $log
 
 [ -z $1 ] && exit
@@ -45,13 +45,13 @@ fi
 [ -e  $HOME/Video ] && rm -rf $HOME/Video && echo "$timestamp removed video" >> $log
 
 # defining shell
-cd $basedir || return 
-# 
+cd $basedir || return
+#
 SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
 
 git clone git@github.com:gNusd/scripts.git && echo "$timestamp cloning scripts.git" >> $log
 
-$shell $script_dir/packages.sh $dist 
+$shell $script_dir/packages.sh $dist
 
 git clone git@github.com:gNusd/dotfiles.git && echo "$timestamp cloning dotfiles.git" >> $log
 cd $basedir/dotfiles/ || return

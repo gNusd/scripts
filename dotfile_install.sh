@@ -5,17 +5,17 @@ basedir=$HOME/repositories
 # defining path to script dir
 script_dir=$basedir/scripts
 
-source $script_dir/config 
+source $script_dir/config
 
 
-# ROOT files 
+# ROOT files
 if [ $1 == "neon" ]
 then
       files=(".bash_aliases" ".bashrc" ".inputrc" ".profile" ".tmux.conf")
 elif [ $1 == "mageia" ]
 then
       files=(".bash_aliases" ".inputrc" ".profile" ".tmux.conf")
-fi 
+fi
 
 path=$HOME
 for file in "${files[@]}"
@@ -32,16 +32,16 @@ dirs=("nvim" "qutebrowser" "triadactyl" "zathura")
 for dir in "${dirs[@]}"
 do
 	[ -e $conf/$dir ] && rm $conf/$dir
-      [ ! -e $conf/$dir ] && ln -s $(pwd)/.config/$dir $conf 
+      [ ! -e $conf/$dir ] && ln -s $(pwd)/.config/$dir $conf
       echo "$timestamp linked $dir" >> $log
 done
 
 
 if [ $1 == "neon" ]
-then 
+then
       files=("katerc" "katevirc" "konsolerc" "kwinrc" "kwinrulesrc" "plasma-localerc" "plasma-nm" "plasmanotifyrc" "plasma-org.kde.plasma.desktop-appletsrc" "plasmarc" "plasmashellrc" "user-dirs.dirs" "yakuake.notifyrc" "yakuakerc")
 elif [ $1 == "mageia" ]
-then 
+then
       files=("katerc" "katevirc" "konsolerc" "user-dirs.dirs" "yakuake.notifyrc" "yakuakerc")
 fi
 

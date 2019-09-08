@@ -5,7 +5,7 @@ basedir=$HOME/repositories
 # defining path to script dir
 script_dir=$basedir/scripts
 
-source $script_dir/config 
+source $script_dir/config
 
 
 git clone https://github.com/erpalma/lenovo-throttling-fix.git
