@@ -1,78 +1,82 @@
-#!/bin/bash
+#!/bin/sh
 
-# definning path to local repo dir
-basedir=$HOME/repositories
-# defining path to script dir
-script_dir=$basedir/scripts
-log=$HOME/install.log
-timestamp=$(date +'%T')
-shell=bash
+dist_0="neon"
+dist_1="ubuntu"
 
-echo "$timestamp started installing $1" >> $log
+[ -z "$1" ] || [ "$1" != "$dist_0" ] || [ "$1" != "$dist_1" ] && echo "Specify distrubution ($dist_0) och ($dist_1)"
+[ "$1" = "$dist_0" ] && PACKAGE_INSTALLER="pkcon"
+[ "$1" = "$dist_1" ] && PACKAGE_INSTALLER="apt"
 
-[ -z $1 ] && exit
-if [ $1 == "neon" ];
-then
-		dist=$1
-		sudo pkcon install git -y
-		autor="apt"
+## Exporting variables
+export "BASE_DIR=$HOME/repositories"
+export "SCRIPT_DIR=$HOME/repositories/scripts"
+export "PACKAGE_INSTALLER=$PACKAGE_INSTALLER"
+export "LOG=$HOME/tmp/install.log"
+export "timestamp=$(date +'%T')"
+export "shell=sh"
 
-elif [ $1 == "mageia" ];
-then
-		dist=$1
-		sudo dnf install git ksshaskpass -y
-		autor="dnf"
-else
-	echo "KDE neon (write neon) or Mageia (write mageia)"
-	exit
-fi
+echo "$timestamp started installing " >> "$LOG"
+
+sudo $PACKAGE_INSTALLER install git -y
+
 # renamning and creating directories
-[ -e  $HOME/Hämtningar ] && mv $HOME/Hämtningar $HOME/hämtningar && echo "$timestamp renamned download" >> $log
-[ ! -e $HOME/nextcloud ] && mkdir $HOME/nextcloud && echo "$timestamp created nextcloud" >> $log
-[ ! -e $HOME/projects ] && mkdir $HOME/projects && echo "$timestamp created projects" >> $log
-[ ! -e $HOME/virtualbox ] && mkdir $HOME/virtualbox && echo "$timestamp created virtualbox" >> $log
-[ ! -e $HOME/tmp ] && mkdir $HOME/tmp && echo "$timestamp created tmp" >> $log
-[ ! -e $HOME/repositories ] && mkdir $HOME/repositories && echo "$timestamp created repositories" >> $log
-[ ! -e $HOME/bin ] && mkdir $HOME/bin && echo "$timestamp created ~/bin" >> $log
-[ ! -e $HOME/.tmux ] && mkdir -p $HOME/.tmux/plugins/ && echo "$timestamp created .tmux/plugins" >> $log
+[ -e  "$HOME/Hämtningar" ] && mv "$HOME/Hämtningar" "$HOME/hämtningar" && echo "$timestamp renamned download" >> "$LOG"
+[ ! -e "$HOME/nextcloud" ] && mkdir "$HOME/nextcloud" && echo "$timestamp created nextcloud" >> "$LOG"
+[ ! -e "$HOME/projects" ] && mkdir "$HOME/projects" && echo "$timestamp created projects" >> "$LOG"
+[ ! -e "$HOME/virtualbox" ] && mkdir "$HOME/virtualbox" && echo "$timestamp created virtualbox" >> "$LOG"
+[ ! -e "$HOME/tmp" ] && mkdir "$HOME/tmp" && echo "$timestamp created tmp" >> "$LOG"
+[ ! -e "$HOME/repositories" ] && mkdir "$HOME/repositories" && echo "$timestamp created repositories" >> "$LOG"
+[ ! -e "$HOME/bin" ] && mkdir "$HOME/bin" && echo "$timestamp created ~/bin" >> "$LOG"
+[ ! -e "$HOME/.tmux" ] && mkdir -p "$HOME/.tmux/plugins/" && echo "$timestamp created .tmux/plugins" >> "$LOG"
 
 # deleting directories
-[ -e  $HOME/Bilder ] && rm -rf $HOME/Bilder && echo "$timestamp removed pictures" >> $log
-[ -e  $HOME/Dokument ] && rm -rf $HOME/Dokument && echo "$timestamp removed documents" >> $log
-[ -e  $HOME/Mallar ] && rm -rf $HOME/Mallar && echo "$timestamp removed templates" >> $log
-[ -e  $HOME/Musik ] && rm -rf $HOME/Musik && echo "$timestamp removed music" >> $log
-[ -e  $HOME/Publikt ] && rm -rf $HOME/Publikt && echo "$timestamp removed public" >> $log
-[ -e  $HOME/Video ] && rm -rf $HOME/Video && echo "$timestamp removed video" >> $log
+[ -e  "$HOME/Bilder" ] && rm -rf "$HOME/Bilder" && echo "$timestamp removed pictures" >> "$LOG"
+[ -e  "$HOME/Dokument" ] && rm -rf "$HOME/Dokument" && echo "$timestamp removed documents" >> "$LOG"
+[ -e  "$HOME/Mallar" ] && rm -rf "$HOME/Mallar" && echo "$timestamp removed templates" >> "$LOG"
+[ -e  "$HOME/Musik" ] && rm -rf "$HOME/Musik" && echo "$timestamp removed music" >> "$LOG"
+[ -e  "$HOME/Publikt" ] && rm -rf "$HOME/Publikt" && echo "$timestamp removed public" >> "$LOG"
+[ -e  "$HOME/Video" ] && rm -rf "$HOME/Video" && echo "$timestamp removed video" >> "$LOG"
 
 # defining shell
-cd $basedir || return
+cd "$BASE_DIR" || return
 #
-SSH_ASKPASS=/usr/bin/ksshaskpass ssh-add < /dev/null
+SSH_ASKPASS="/usr/bin/ksshaskpass" ssh-add < /dev/null
 
-git clone git@github.com:gNusd/scripts.git && echo "$timestamp cloning scripts.git" >> $log
+git clone git@github.com:gnusd/scripts.git && echo "$timestamp cloning scripts.git" >> "$LOG"
 
-$shell $script_dir/packages.sh $dist
+"$shell" "$SCRIPT_DIR/packages.sh"
 
-git clone git@github.com:gNusd/dotfiles.git && echo "$timestamp cloning dotfiles.git" >> $log
-cd $basedir/dotfiles/ || return
-$shell $script_dir/dotfile_install.sh $dist
-cd $basedir || return
+# clone and install dotfiles
+git clone git@github.com:gnusd/dotfiles.git && echo "$timestamp cloning dotfiles.git" >> "$LOG"
+cd "$BASE_DIR/dotfiles/" || return
+"$shell" "$SCRIPT_DIR/dotfile_install.sh"
+cd "$BASE_DIR" || return
 
-git clone git@github.com:gNusd/local-bin.git $HOME/bin && echo "$timestamp cloned ~/bin" >> $log
+git clone git@github.com:gnusd/local-bin.git "$HOME/bin" && echo "$timestamp cloned ~/bin" >> "$LOG"
 
-$shell $script_dir/tmux-nvim.sh
-$shell $script_dir/native_tridactyl.sh
-$shell $script_dir/git_repos.sh $dist
-$shell $script_dir/systemprocesses.sh $dist
+"$shell" "$SCRIPT_DIR/tmux-nvim.sh"
+"$shell" "$SCRIPT_DIR/native_tridactyl.sh"
+"$shell" "$SCRIPT_DIR/git_repos.sh"
+"$shell" "$SCRIPT_DIR/systemprocesses.sh"
 
-rm $HOME/init.sh &&  echo "$timestamp removed install script" >> $log
+rm "$HOME/init.sh" &&  echo "$timestamp removed install script" >> "$LOG"
 
-sudo $autor autoremove -y && echo "$timestamp Post install clean up" >> $log
-echo "$timestamp Finished installing" >> $log && echo "Finished installing"
-read -r -p "Reboot now [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
-	sudo shutdown -r now
+sudo apt autoremove -y && echo "$timestamp Post install clean up" >> "$LOG"
+echo "$timestamp Finished installing" >> "$LOG" && echo "Finished installing"
+
+#Unset variables
+unset "BASE_DIR"
+unset "SCRIPT_DIR"
+unset "PACKAGE_INSTALLER"
+unset "LOG"
+unset "timestamp"
+unset "shell"
+
+printf '%s' "Reboot now [y/N] "
+read -r response
+
+if [ "$response" != "${response#[Yy]}" ] ;then
+		sudo shutdown -r now
 else
-	exit
+		exit
 fi

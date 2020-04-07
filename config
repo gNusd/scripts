@@ -1,5 +1,0 @@
-#!/bin/bash
-
-log=$HOME/install.log
-timestamp=$(date +'%T')
-shell=bash

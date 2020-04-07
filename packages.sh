@@ -1,66 +1,41 @@
-#!/bin/bash
+#!/bin/sh
 
-# definning path to local repo dir
-basedir=$HOME/repositories
-# defining path to script dir
-script_dir=$basedir/scripts
+[ "$PACKAGE_INSTALLER" = "pkcon" ] && UPDATE="sudo pkcon refresh -p && sudo pkcon update -py"
+[ "$PACKAGE_INSTALLER" = "apt" ] && UPDATE="sudo apt update && sudo apt upgrade -y"
 
-source $script_dir/config
+# apt repository
+sudo add-apt-repository multiverse && echo "$timestamp added multiverse" >> "$LOG"
+sudo add-apt-repository ppa:nilarimogard/webupd8 && echo "$timestamp added webupd8 ppa" >> "$LOG"
+$UPDATE && echo "$timestamp updating the system" >> "$LOG"
 
-if [ $1 == "neon" ];
-then
-		# apt repository
-		sudo add-apt-repository multiverse && echo "$timestamp added multiverse" >> $log
-		sudo add-apt-repository ppa:neovim-ppa/stable && echo "$timestamp added neovim-ppa" >> $log
-		sudo add-apt-repository ppa:nilarimogard/webupd8 && echo "$timestamp added webupd8 ppa" >> $log
-		sudo apt update
-		sudo pkcon refresh -p && sudo pkcon update -py && echo "$timestamp updating the system" >> $log
-		pacmanager="pkcon"
+# general packages
+gen_pac="tmux gimp gimp-help-sv htop zathura yakuake tlp tlp-rdw kontact kate kubuntu-driver-manager libreoffice libreoffice-style-breeze ttf-mscorefonts-installer kubuntu-restricted-extras gufw syncthing"
+dep_pac="build-essential python3-dev libdbus-glib-1-dev libgirepository1.0-dev libcairo2-dev python3-venv python3-wheel qtbase5-dev qtwebengine5-dev extra-cmake-modules qtdeclarative5-dev libkf5windowsystem-dev libkf5plasma-dev libsm-dev libqt5x11extras5-dev python3-pip python-pip"
 
-elif [ $1 == "mageia" ];
-then
-		sudo urpmi.removemedia -a && echo "$timestamp removing all repos" >> $log
-		sudo urpmi.addmedia --distrib --mirrorlist 'http://mirrors.mageia.org/api/mageia.cauldron.x86_64.list' && echo "$timestamp added cauldron repos" >> $log
-		sudo urpmi --auto-update --auto && echo "$timestamp updating the system" >> $log
-		pacmanager="dnf"
-fi
-
-# general packages 
-gen_pac="tmux curl neovim neovim-qt gimp gimp-help-sv htop zathura redshift yakuake tlp tlp-rdw"
-neon_pac="kontact kate kubuntu-driver-manager libreoffice libreoffice-style-breeze ttf-mscorefonts-installer kubuntu-restricted-extras gufw syncthing"
-neon_dep_pac="python-pip python3-pip build-essential python3-dev libdbus-glib-1-dev libgirepository1.0-dev libcairo2-dev python3-venv python3-wheel qtbase5-dev qtwebengine5-dev extra-cmake-modules qtdeclarative5-dev libkf5windowsystem-dev libkf5plasma-dev libsm-dev libqt5x11extras5-dev"
-mageia_pac="flatpak fwupd nextcloud-client nextcloud-client-dolphin keepassxc kate discover"
-mageia_dep_pac="python3-cairo-devel python-gobject-devel python3-blockdev lib64dbus-glib-devel lib64python3-devel lib64x11-devel python-dbus-devel gcc make python3-devel cairo-devel python3-gobject-cairo gobject-introspection-devel python3-pip python-pip"
-
-echo "$timestamp selected package manager = $pacmanager" >> $log
+echo "$timestamp selected package manager = $PACKAGE_INSTALLER"  >> "$LOG"
 # apt install applications
-sudo $pacmanager install -y  $gen_pac && echo "$timestamp installed $gen_pac" >> $log
+sudo "$PACKAGE_INSTALLER" install -y  "$gen_pac" "$dep_pac" && echo "$timestamp installed $gen_pac $dep_pac" >> "$LOG"
 
-if [ $1 == "neon" ]
-then
-	sudo $pacmanager install -y $neon_pac $neon_dep_pac
-	sudo snap install cmake --classic && echo "$timestamp installed cmake" >> $log
-	sudo snap install fwupd --classic && echo "$timestamp installed fwupd" >> $log
-	sudo snap install youtube-dl && echo "$timestamp installed youtube-dl" >> $log
-	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "$timestamp added flathub repo" >> $log
-	sudo flatpak install flathub org.nextcloud.Nextcloud -y && echo "$timestamp installed nextcloud" >> $log
-	sudo flatpak install flathub org.keepassxc.KeePassXC -y && echo "$timestamp installed keepassxc" >> $log
-	apps="kwrite"
-	echo "$timestamp installed $neon_pac $neon_dep_pac" >> $log
-elif [ $1 == "mageia" ]
-then
-	sudo $pacmanager install -y $mageia_pac $mageia_dep_pac && echo "$timestamp installed $mageia_pac $mageia_dep_pac" >> $log
-	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "$timestamp added flathub repo" >> $log
-	sudo flatpak install flathub me.kozec.syncthingtk -y && echo "$timestamp syncthing" >> $log
-	apps="kwrite dragon clementine marble k3b"
-fi
+# Install snap packages
+sudo snap install cmake --classic && echo "$timestamp installed cmake" >> "$LOG"
+sudo snap install fwupd --classic && echo "$timestamp installed fwupd" >> "$LOG"
+sudo snap install youtube-dl && echo "$timestamp installed youtube-dl" >> "$LOG"
+sudo snap install nvim --classic --edge && echo "$timestamp installed nvim" >> "$LOG"
 
-sudo flatpak install flathub com.valvesoftware.Steam -y && echo "$timestamp installed steam" >> $log
-sudo flatpak install flathub com.visualstudio.code -y && echo "$timestamp installed vscode" >> $log
+# add flathub.org repository
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && echo "$timestamp added flathub repo" >> "$LOG"
 
+# Install flatpaks
+sudo flatpak install flathub org.nextcloud.Nextcloud -y && echo "$timestamp installed nextcloud" >> "$LOG"
+sudo flatpak install flathub com.valvesoftware.Steam -y && echo "$timestamp installed steam" >> "$LOG"
+sudo flatpak install flathub com.bitwarden.desktop && echo "$timestamp installed bitwarden" >> "$LOG"
+sudo flatpak install flathub org.telegram.desktop  && echo "$timestamp installed telegram" >> "$LOG"
 
-# sudo pip install ntfy
-bash $HOME/repositories/scripts/native_tridactyl.sh
+# remove preinstalled applications
+remove_apps="kwrite vim "
+
+"$shell"  "$SCRIPT_DIR/native_tridactyl.sh"
 
 # removing software
-sudo $pacmanager remove -y $apps && echo "$timestamp removed $apps" >> $log
+sudo "$PACKAGE_INSTALLER" remove --purge -y "$remove_apps" && echo "$timestamp removed $remove_apps" >> "$LOG"
+sudo "$PACKAGE_INSTALLER" autoremove -y && echo "$timestamp autoremoved" >> "$LOG"
