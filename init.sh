@@ -1,11 +1,19 @@
 #!/bin/sh
 
-dist_0="neon"
-dist_1="ubuntu"
+case "$1" in
+		ubuntu)
+				PACKAGE_INSTALLER="apt"
+				;;
+		neon)
+				PACKAGE_INSTALLER="pkcon"
+				;;
+		*)
+				echo "Choose ubuntu or neon" && exit
+				;;
+esac
 
-[ -z "$1" ] || [ "$1" != "$dist_0" ] || [ "$1" != "$dist_1" ] && echo "Specify distrubution ($dist_0) och ($dist_1)"
-[ "$1" = "$dist_0" ] && PACKAGE_INSTALLER="pkcon"
-[ "$1" = "$dist_1" ] && PACKAGE_INSTALLER="apt"
+
+[ ! -e "$HOME/tmp" ] && mkdir "$HOME/tmp"
 
 ## Exporting variables
 export "BASE_DIR=$HOME/repositories"
@@ -24,7 +32,6 @@ sudo $PACKAGE_INSTALLER install git -y
 [ ! -e "$HOME/nextcloud" ] && mkdir "$HOME/nextcloud" && echo "$timestamp created nextcloud" >> "$LOG"
 [ ! -e "$HOME/projects" ] && mkdir "$HOME/projects" && echo "$timestamp created projects" >> "$LOG"
 [ ! -e "$HOME/virtualbox" ] && mkdir "$HOME/virtualbox" && echo "$timestamp created virtualbox" >> "$LOG"
-[ ! -e "$HOME/tmp" ] && mkdir "$HOME/tmp" && echo "$timestamp created tmp" >> "$LOG"
 [ ! -e "$HOME/repositories" ] && mkdir "$HOME/repositories" && echo "$timestamp created repositories" >> "$LOG"
 [ ! -e "$HOME/bin" ] && mkdir "$HOME/bin" && echo "$timestamp created ~/bin" >> "$LOG"
 [ ! -e "$HOME/.tmux" ] && mkdir -p "$HOME/.tmux/plugins/" && echo "$timestamp created .tmux/plugins" >> "$LOG"
