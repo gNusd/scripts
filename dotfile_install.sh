@@ -6,9 +6,9 @@ files=(".zshrc" ".inputrc" ".profile" ".tmux.conf")
 path=$HOME
 for file in "${files[@]}"
 do
-      [ -f "$path/$file" ] && [ ! -L "$path/$file" ] && rm "$path/$file"
-      [ ! -f "$path/$file" ] && ln -s "$(pwd)/$file $path"
-      echo "$timestamp linked $file" >> "$LOG"
+		[ -f "$path/$file" ] && [ ! -L "$path/$file" ] && rm "$path/$file"
+		[ ! -f "$path/$file" ] && ln -s "$(pwd)/$file $path"
+		echo "$timestamp linked $file" >> "$LOG"
 done
 # .config
 
@@ -17,9 +17,9 @@ conf=$HOME/.config
 dirs=("nvim" "qutebrowser" "triadactyl" "zathura")
 for dir in "${dirs[@]}"
 do
-	  [ -e "$conf/$dir" ] && rm "$conf/$dir"
-      [ ! -e "$conf/$dir" ] && ln -s "$(pwd)/.config/$dir" "$conf"
-      echo "$timestamp linked $dir" >> "$LOG"
+		[ -e "$conf/$dir" ] && rm "$conf/$dir"
+		[ ! -e "$conf/$dir" ] && ln -s "$(pwd)/.config/$dir" "$conf"
+		echo "$timestamp linked $dir" >> "$LOG"
 done
 
 
@@ -28,8 +28,8 @@ files=("katerc" "katevirc" "konsolerc" "kwinrc" "kwinrulesrc" "plasma-localerc" 
 for file in "${files[@]}"
 do
 		[ -f "$conf/$file" ] && [ ! -L "$conf/$file" ] && rm "$conf/$file"
-      [ ! -f "$conf/$file" ] && ln -s "$(pwd)/.config/$file" "$conf"
-      echo "$timestamp linked $file" >> "$LOG"
+		[ ! -f "$conf/$file" ] && ln -s "$(pwd)/.config/$file" "$conf"
+		echo "$timestamp linked $file" >> "$LOG"
 done
 
 

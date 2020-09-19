@@ -1,22 +1,11 @@
 #!/bin/sh
 
-case "$1" in
-		ubuntu)
-				PACKAGE_INSTALLER="apt"
-				;;
-		neon)
-				PACKAGE_INSTALLER="pkcon"
-				;;
-		*)
-				echo "Choose ubuntu or neon" && exit
-				;;
-esac
-
 
 [ ! -e "$HOME/tmp" ] && mkdir "$HOME/tmp"
 
 ## Exporting variables
 export "BASE_DIR=$HOME/repositories"
+export "PACKAGE_INSTALLER=pkcon"
 export "SCRIPT_DIR=$HOME/repositories/scripts"
 export "PACKAGE_INSTALLER=$PACKAGE_INSTALLER"
 export "LOG=$HOME/tmp/install.log"
