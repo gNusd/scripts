@@ -3,12 +3,12 @@
 git clone https://github.com/erpalma/lenovo-throttling-fix.git
 sudo "$BASE_DIR"/lenovo-throttling-fix/install.sh && echo "$timestamp cloned/installed lenovo-throttling-fix.git" >> "$LOG"
 
-enviroment=$(sudo dmidecode | grep Product)
-if [ "$enviroment" != "Product Name: VirtualBox" ]
-then
-    git clone git@github.com:ryanoasis/nerd-fonts.git
-    "$BASE_DIR"/nerd-fonts/install.sh && echo "$timestamp cloned/installed nerd-fonts.git" >> "$LOG"
-fi
+# enviroment=$(sudo dmidecode | grep Product)
+# if [ "$enviroment" != "Product Name: VirtualBox" ]
+# then
+#     git clone git@github.com:ryanoasis/nerd-fonts.git
+#     "$BASE_DIR"/nerd-fonts/install.sh && echo "$timestamp cloned/installed nerd-fonts.git" >> "$LOG"
+# fi
 
 
 git clone git@github.com:sieren/QSyncthingTray.git

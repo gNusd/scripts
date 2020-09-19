@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 [ ! -e "$HOME/tmp" ] && mkdir "$HOME/tmp"
@@ -7,10 +7,11 @@
 export "BASE_DIR=$HOME/repositories"
 export "PACKAGE_INSTALLER=pkcon"
 export "SCRIPT_DIR=$HOME/repositories/scripts"
-export "PACKAGE_INSTALLER=$PACKAGE_INSTALLER"
+export "DOTDIR=$BASE_DIR/dotfiles"
+export "CONF_DIR=$HOME/.config"
 export "LOG=$HOME/tmp/install.log"
 export "timestamp=$(date +'%T')"
-export "shell=sh"
+export "shell=bash"
 
 echo "$timestamp started installing " >> "$LOG"
 
@@ -33,7 +34,8 @@ sudo $PACKAGE_INSTALLER install git -y
 [ -e  "$HOME/Publikt" ] && rm -rf "$HOME/Publikt" && echo "$timestamp removed public" >> "$LOG"
 [ -e  "$HOME/Video" ] && rm -rf "$HOME/Video" && echo "$timestamp removed video" >> "$LOG"
 
-# defining shell
+[ -f "$DOTDIR/.config/user-dirs.dirs" ] && ln -s "$DOTDIR/.config/user-dirs.dirs" "$CONF_DIR" && echo "$timestamp installed user-dirs.dirs" >> "$LOG"
+
 cd "$BASE_DIR" || return
 #
 SSH_ASKPASS="/usr/bin/ksshaskpass" ssh-add < /dev/null
@@ -53,7 +55,7 @@ git clone git@github.com:gnusd/local-bin.git "$HOME/bin" && echo "$timestamp clo
 "$shell" "$SCRIPT_DIR/tmux-nvim.sh"
 "$shell" "$SCRIPT_DIR/native_tridactyl.sh"
 "$shell" "$SCRIPT_DIR/git_repos.sh"
-"$shell" "$SCRIPT_DIR/systemprocesses.sh"
+sudo tlp start && echo "$timestamp started tlp" >> "$LOG"
 
 rm "$HOME/init.sh" &&  echo "$timestamp removed install script" >> "$LOG"
 
