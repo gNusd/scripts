@@ -7,7 +7,7 @@
 export "BASE_DIR=$HOME/repositories"
 export "PACKAGE_INSTALLER=pkcon"
 export "SCRIPT_DIR=$HOME/repositories/scripts"
-export "DOTDIR=$BASE_DIR/dotfiles"
+export "DOT_DIR=$BASE_DIR/dotfiles"
 export "CONF_DIR=$HOME/.config"
 export "LOG=$HOME/tmp/install.log"
 export "timestamp=$(date +'%T')"
@@ -34,7 +34,7 @@ sudo $PACKAGE_INSTALLER install git -y
 [ -e  "$HOME/Publikt" ] && rm -rf "$HOME/Publikt" && echo "$timestamp removed public" >> "$LOG"
 [ -e  "$HOME/Video" ] && rm -rf "$HOME/Video" && echo "$timestamp removed video" >> "$LOG"
 
-[ -f "$DOTDIR/.config/user-dirs.dirs" ] && ln -s "$DOTDIR/.config/user-dirs.dirs" "$CONF_DIR" && echo "$timestamp installed user-dirs.dirs" >> "$LOG"
+[ -f "$DOT_DIR/.config/user-dirs.dirs" ] && ln -s "$DOT_DIR/.config/user-dirs.dirs" "$CONF_DIR" && echo "$timestamp installed user-dirs.dirs" >> "$LOG"
 
 cd "$BASE_DIR" || return
 #
