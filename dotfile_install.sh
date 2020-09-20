@@ -21,7 +21,7 @@ do
 done
 
 
-files=("katerc" "katevirc" "konsolerc" "kwinrc" "kwinrulesrc" "plasma-localerc" "plasma-nm" "plasmanotifyrc" "plasma-org.kde.plasma.desktop-appletsrc" "plasmarc" "plasmashellrc" "user-dirs.dirs" "yakuake.notifyrc" "yakuakerc")
+files=("katerc" "katevirc" "konsolerc" "yakuake.notifyrc" "yakuakerc")
 
 for file in "${files[@]}"
 do

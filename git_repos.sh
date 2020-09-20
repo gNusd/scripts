@@ -24,26 +24,26 @@ cd "$BASE_DIR" || return
 
 # Plasma scripts and plasmoids
 
-git clone git://anongit.kde.org/plasma-active-window-control
-cd "$BASE_DIR"/plasma-active-window-control || return
-mkdir build && cd build || return
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr
-make
-sudo make install
-cd "$BASE_DIR" || return
+# git clone git://anongit.kde.org/plasma-active-window-control
+# cd "$BASE_DIR"/plasma-active-window-control || return
+# mkdir build && cd build || return
+# cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+# make
+# sudo make install
+# cd "$BASE_DIR" || return
 
-git clone git@github.com:kwin-scripts/kwin-tiling.git
-cd "$BASE_DIR"/kwin-tiling/ || return
-plasmapkg2 --type kwinscript -i .
-cd "$BASE_DIR" || return
+# git clone git@github.com:kwin-scripts/kwin-tiling.git
+# cd "$BASE_DIR"/kwin-tiling/ || return
+# plasmapkg2 --type kwinscript -i .
+# cd "$BASE_DIR" || return
 
-git clone git@github.com:kotelnik/plasma-applet-uptime-widget.git
-cd "$BASE_DIR"/plasma-applet-uptime-widget/package || return
-plasmapkg2 -i .
-cd "$BASE_DIR" || return
+# git clone git@github.com:kotelnik/plasma-applet-uptime-widget.git
+# cd "$BASE_DIR"/plasma-applet-uptime-widget/package || return
+# plasmapkg2 -i .
+# cd "$BASE_DIR" || return
 
-git clone git@github.com:psifidotos/applet-window-title.git
-cd "$BASE_DIR"/applet-window-title || return
-plasmapkg2 -i .
-cd "$BASE_DIR" || return
-echo "$timestamp cloned/installed plasmoids" >> "$LOG"
+# git clone git@github.com:psifidotos/applet-window-title.git
+# cd "$BASE_DIR"/applet-window-title || return
+# plasmapkg2 -i .
+# cd "$BASE_DIR" || return
+# echo "$timestamp cloned/installed plasmoids" >> "$LOG"

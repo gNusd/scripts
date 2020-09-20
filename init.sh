@@ -1,11 +1,19 @@
 #!/bin/bash
 
-
 [ ! -e "$HOME/tmp" ] && mkdir "$HOME/tmp"
+
+if [ "$1" == "neon" ]
+then
+		PACKAGE_INSTALLER="pkcon"
+else if [ "$1" == "ubuntu" ]
+		PACKAGE_INSTALLER="apt"
+else
+		echo "choose neon for KDE Neon or ubuntu for mainline Ubuntu"
+fi
 
 ## Exporting variables
 export "BASE_DIR=$HOME/repositories"
-export "PACKAGE_INSTALLER=pkcon"
+export "PACKAGE_INSTALLER=$PACKAGE_INSTALLER"
 export "SCRIPT_DIR=$HOME/repositories/scripts"
 export "DOT_DIR=$BASE_DIR/dotfiles"
 export "CONF_DIR=$HOME/.config"
@@ -54,7 +62,7 @@ git clone git@github.com:gnusd/local-bin.git "$HOME/bin" && echo "$timestamp clo
 
 "$shell" "$SCRIPT_DIR/tmux-nvim.sh"
 "$shell" "$SCRIPT_DIR/native_tridactyl.sh"
-"$shell" "$SCRIPT_DIR/git_repos.sh"
+# "$shell" "$SCRIPT_DIR/git_repos.sh"
 sudo tlp start && echo "$timestamp started tlp" >> "$LOG"
 
 rm "$HOME/init.sh" &&  echo "$timestamp removed install script" >> "$LOG"
