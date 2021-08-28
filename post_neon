@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# renamning and creating directories
+[ ! -e "$HOME/downloads" ] && mkdir "$HOME/downloads"
+[ ! -e "$HOME/nextcloud" ] && mkdir "$HOME/nextcloud"
+[ ! -e "$HOME/projects" ] && mkdir "$HOME/projects"
+[ ! -e "$HOME/.local/bin" ] && mkdir "$HOME/.local/bin"
+[ ! -e "$HOME/.local/git" ] && mkdir "$HOME/.local/git"
+[ ! -e "$HOME/.local/git/local" ] && mkdir "$HOME/.local/git/local"
+[ ! -e "$HOME/.local/git/remote" ] && mkdir "$HOME/.local/git/remote"
+[ ! -e "$HOME/.local/git/local/code" ] && mkdir "$HOME/.local/git/local/code"
+
+# deleting directories
+[ -e  "$HOME/Bilder" ] && rm -rf "$HOME/Bilder"
+[ -e  "$HOME/Hämtningar" ] && rm -rf "$HOME/Hämtningar"
+[ -e  "$HOME/Dokument" ] && rm -rf "$HOME/Dokument"
+[ -e  "$HOME/Mallar" ] && rm -rf "$HOME/Mallar"
+[ -e  "$HOME/Musik" ] && rm -rf "$HOME/Musik"
+[ -e  "$HOME/Publikt" ] && rm -rf "$HOME/Publikt"
+[ -e  "$HOME/Video" ] && rm -rf "$HOME/Video"
+
+git clone git@github.com:gnusd/dotfiles.git "$HOME/.local/git/local/dotfiles"
+git clone git@github.com:gnusd/local-bin.git "$HOME/.local/bin"
+git clone git@github.com:gnusd/scripts.git "$HOME/.local/git/local/scripts"
+
+chsh /usr/bin/zsh gnus
+ln -s "$HOME/.local/git/local/dotfiles/.zshrc" "$HOME"
+
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+pip3 install pynvim
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+cargo install exa

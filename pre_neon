@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# SPDX-License-Identifier: BSD-2-Clause
+# SPDX-FileCopyrightText: 2020 Theo Markettos <git@markettos.org.uk>
+
+# Script to install KDE Neon on top of Ubuntu 20.04
+#
+# The KDE Neon site says "A web search should quickly give you relevant information on how to do this. "
+# but I didn't find any, so worked it out from first principles
+
+# add the KDE Neon repository
+wget -qO - 'https://archive.neon.kde.org/public.key' | sudo apt-key add -
+
+cat <<EOF > /etc/apt/sources.list.d/neon.list
+deb http://archive.neon.kde.org/user/ focal main
+deb-src http://archive.neon.kde.org/user/ focal main
+EOF
+
+# pin base-files to not install the Neon version
+# - this prevents the install identifying as Neon,
+# and stops problems with programs that this confuses,
+# eg the Docker install script
+cat <<EOF > /etc/apt/preferences.d/99block-neon
+Package: base-files
+Pin: origin archive.neon.kde.org
+Pin-Priority: 1
+EOF
+
+sed -i 's/GRUB_TIMEOUT_STYLE=hidden/# GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
+sed -i 's/GRUB_TIMEOUT=0/# GRUB_TIMEOUT=0/' /etc/default/grub
+
+echo Voight-Kampff > /etc/hostname
+add-apt-repository -y ppa:neovim-ppa/unstable
+apt update
+apt -y dist-upgrade
+apt -y install neon-desktop
+
+apt -y remove --purge mate* magnus plank tilda
+update-grub
+
+apt -y install git neovim mpv yakuake nextcloud-desktop build-essential iperf3 fd-find wl-clipboard zsh zsh-syntax-highlighting zsh-autosuggestions python3-pip zathura tlp tlp-rdw kontact
